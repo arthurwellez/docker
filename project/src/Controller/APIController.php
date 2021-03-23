@@ -28,7 +28,6 @@ class APIController extends AbstractController
      */
     public function getKnights(KnightRepository $knightsRepo)
     {
-        exit;
         $knights = $knightsRepo->findAll();
 
         if (count($knights) > 0) {
