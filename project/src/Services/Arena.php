@@ -1,18 +1,15 @@
 <?php
 
-namespace App\Controller;
+namespace App\Services;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Entity\FightInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class ArenaController extends AbstractController 
-{    
-    /**
-     * @Route("/arena", name="arena")
-     */
-    public function fight($knight1 = NULL, $knight2 = NULL)
+class Arena extends AbstractController implements FightInterface 
+{
+    public function fight($knight1 = NULL, $knight2 = NULL): int
     {
         if (!isset($knight1) || !isset($knight2)) {
             $em = $this->getDoctrine()->getManager();
@@ -35,7 +32,7 @@ class ArenaController extends AbstractController
         return new Response($result);
     }
 
-    public function calculatePowerLevel($knight)
+    public function calculatePowerLevel($knight = NULL): int
     {
         $strength = $knight->getStrength();
         $weapon = $knight->getWeaponPower();
@@ -43,5 +40,10 @@ class ArenaController extends AbstractController
         $all = $strength + $weapon;
 
         return $all;
+    }
+
+    public function getId(): int
+    {
+        
     }
 }
